@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>ガチャ確率計算</title>
+  </head>
+
+  <body>
+
+    <script type="text/javascript" src="calc.js"></script>
+
+    <div>獲得数</div>
+    <form name="param" action="#">
+      <select id="num1">
+        <option value=1>1体</option>
+        <option value=2>2体</option>
+        <option value=3>3体</option>
+        <option value=4>4体</option>
+        <option value=5>5体</option>
+        <option value=6>6体</option>
+        <option value=7>7体</option>
+      </select>
+    </form>
+
+    <div>ガチャ石の数</div>
+    <form name="param" action="#">
+      <input type="text" id="num2">
+    </form>
+
+    <div>天井カウント</div>
+    <form name="param" action="#">
+      <input type="text" id="num3">
+    </form>
+
+    <form id="num4">
+      <input type="radio" name="hoge" value=1>すり抜け
+      <input type="radio" name="hoge" value=0>ピックアップキャラ
+    </form>
+
+    <input type="button" value="計算" onClick="calc()">
+
+    <div id="answer"></div>
+
+  </body>
+</html>

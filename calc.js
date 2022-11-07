@@ -9,6 +9,7 @@ let dP_pick;
 
 let sum_P;
 
+var myChart = null;
 
 function reset(){
   p = new Array(91);
@@ -20,7 +21,9 @@ function reset(){
   dP_s5 = new Array(181);
   dP_pick = new Array(181);
 
-  sum_P=0;
+  sum_P = new Array(180*7+1);
+
+  if(myChart!=null) myChart.destroy();
 }
 
 
@@ -124,10 +127,6 @@ function calc() {
     document.getElementById('answer').innerHTML = -1;
     return;
   }
-  if((!sur&&N+NT>=180*s)||(sur&&N+NT>=180*(s-1)+90)){
-    document.getElementById('answer').innerHTML = 100;
-    return;
-  }
 
   input_arr();
   input_Tarr(NT,sur);
@@ -143,8 +142,52 @@ function calc() {
     }
   }
 
-  for(let i=1;i<=N;i++) sum_P+=P_out[i];
+  for(let i=1;i<=N;i++){
+    if(i==1) sum_P[i]=P_out[i];
+    else sum_P[i]=P_out[i]+sum_P[i-1];
+  }
 
-  document.getElementById('answer').innerHTML = sum_P*100;
+  display(N);
+
+  document.getElementById('answer').innerHTML = sum_P[N]*100;
   document.getElementById('p').innerHTML = '%';
+}
+
+function display(N){
+  let Label;
+  let Data;
+  if(N-49>=1){
+    Label = new Array(50);
+    Data = new Array(50);
+    for(let i=0;i<50;i++) {
+      Label[i]=String(N-49+i);
+      Data[i]=sum_P[N-49+i]*100;
+    }
+  }else{
+    Label = new Array(N);
+    Data = new Array(N);
+    for(let i=0;i<N;i++) {
+      Label[i]=String(i+1);
+      Data[i]=sum_P[i+1]*100;
+    }
+  }
+
+  var lineChartData = {
+        labels : Label,
+        datasets : [
+           {
+              label: "緑データ",
+              fillColor : "rgba(92,220,92,0.2)", // 線から下端までを塗りつぶす色
+              strokeColor : "rgba(92,220,92,1)", // 折れ線の色
+              pointColor : "rgba(92,220,92,1)",  // ドットの塗りつぶし色
+              pointStrokeColor : "white",        // ドットの枠線色
+              pointHighlightFill : "yellow",     // マウスが載った際のドットの塗りつぶし色
+              pointHighlightStroke : "green",    // マウスが載った際のドットの枠線色
+              data : Data       // 各点の値
+           }
+        ]
+
+     }
+
+  myChart = new Chart(document.getElementById("graph-area").getContext("2d")).Line(lineChartData);
 }

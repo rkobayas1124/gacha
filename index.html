@@ -10,10 +10,11 @@
     <script type="text/javascript" src="calc.js"></script>
 
 
-
-    <form name="param" action="#">
+    <div style="display:inline-flex">
       紡がれた運命
-      <input type="text" id="num2">
+      <form name="param" action="#">
+        <input type="text" id="num2">
+      </form>
       個で、ピックアップキャラを
     　<select id="num1">
         <option value=1>1体</option>
@@ -25,20 +26,24 @@
         <option value=7>7体</option>
       </select>
       以上引く確率
-    </form>
+    </div>
 
-    <div>前回結果</div>
-    <form name="param" action="#">
-      <div>天井カウント</div>
-      <input type="text" id="num3">
-    </form>
+    <div style="display:inline-flex">
+      (前回結果:天井カウント
+      <form name="param" action="#">
+        <input type="text" id="num3">
+      </form>
 
-    <form id="num4">
-      <input type="radio" name="hoge" value=1>すり抜け
-      <input type="radio" name="hoge" value=0>ピックアップキャラ
-    </form>
+      <form id="num4">
+        <input type="radio" name="hoge" value=1>すり抜け
+        <input type="radio" name="hoge" value=0>ピックアップキャラ
+      </form>
+      )
+    </div>
 
-    <input type="button" value="計算" onClick="calc()">
+    <div>
+      <input type="button" value="計算" onClick="calc()">
+    </div>
 
     <div id="answer"></div>
 

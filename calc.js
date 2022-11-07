@@ -146,4 +146,5 @@ function calc() {
   for(let i=1;i<=N;i++) sum_P+=P_out[i];
 
   document.getElementById('answer').innerHTML = sum_P*100;
+  document.getElementById('p').innerHTML = '%';
 }

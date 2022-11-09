@@ -134,7 +134,7 @@ function calc() {
   let P_out = new Array(1261); for(let n=1;n<=1260;n++) P_out[n]=0;
   if(s==1){
     for(let n=1;n<=1260;n++){
-      if(n<=N) P_out[n]=dP_pick[n];
+      if(n<=180) P_out[n]=dP_pick[n];
       else P_out[n]=0;
     }
   }else{
@@ -146,34 +146,27 @@ function calc() {
   }
 
   for(let i=1;i<=1260;i++){
-    if(i==1) sum_P[i]=P_out[i];
-    else sum_P[i]=P_out[i]+sum_P[i-1];
+    if(i==1) sum_P[i]=P_out[i]*100;
+    else if (sur&&i+NT<90+180*(s-1)||!sur&&i+NT<180*s) sum_P[i]=P_out[i]*100+sum_P[i-1];
+    else sum_P[i]=100;
   }
 
   display(N);
 
-  document.getElementById('answer').innerHTML = sum_P[N]*100;
-  document.getElementById('p').innerHTML = '%';
+  document.getElementById('answer').innerHTML = String(sum_P[N].toFixed(3))+'%';
+
 }
 
 function display(N){
-  let Label;
-  let Data;
-  if(N-49>=1){
-    Label = new Array(50);
-    Data = new Array(50);
-    for(let i=0;i<50;i++) {
-      Label[i]=String(N-49+i);
-      Data[i]=sum_P[N-49+i]*100;
-    }
-  }else{
-    Label = new Array(N);
-    Data = new Array(N);
-    for(let i=0;i<N;i++) {
-      Label[i]=String(i+1);
-      Data[i]=sum_P[i+1]*100;
+  let Label = new Array();
+  let Data = new Array();
+  for(let i=-10;i<=10;i++){
+    if(1<=N+i&&N+i<=1260){
+      Label.push(String(N+i));
+      Data.push(sum_P[N+i]);
     }
   }
+
 
   var lineChartData = {
         labels : Label,

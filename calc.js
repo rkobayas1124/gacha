@@ -131,18 +131,21 @@ function calc() {
   input_arr();
   input_Tarr(NT,sur);
 
-  let P_out = new Array(N+1); for(let n=1;n<=N;n++) P_out[n]=0;
+  let P_out = new Array(1261); for(let n=1;n<=1260;n++) P_out[n]=0;
   if(s==1){
-    for(let n=1;n<=N;n++) P_out[n]=dP_pick[n];
+    for(let n=1;n<=1260;n++){
+      if(n<=N) P_out[n]=dP_pick[n];
+      else P_out[n]=0;
+    }
   }else{
-    for(let n=1;n<=N;n++){
+    for(let n=1;n<=1260;n++){
       for(let m=1;m<=n-1&&m<=180;m++){
         P_out[n]+=dP_pick[m]*P_npick[s-1][n-m];
       }
     }
   }
 
-  for(let i=1;i<=N;i++){
+  for(let i=1;i<=1260;i++){
     if(i==1) sum_P[i]=P_out[i];
     else sum_P[i]=P_out[i]+sum_P[i-1];
   }
